@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://videoml.org/schemas/voiceover-config.schema.json",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "voice": {
+      "type": "string",
+      "minLength": 1
+    },
+    "speed": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "seed": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        {
+          "const": "random"
+        }
+      ]
+    },
+    "sampleRateHz": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "leadInSeconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "trimEndSeconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "pauseBetweenItems": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "fixed"
+            },
+            "seconds": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "mode",
+            "seconds"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "gaussian"
+            },
+            "mean": {
+              "type": "number"
+            },
+            "std": {
+              "type": "number",
+              "minimum": 0
+            },
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "mode",
+            "mean",
+            "std"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "pronunciations": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "grapheme": {
+                "type": "string",
+                "minLength": 1
+              },
+              "alias": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "grapheme",
+              "alias"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "grapheme": {
+                "type": "string",
+                "minLength": 1
+              },
+              "phoneme": {
+                "type": "string",
+                "minLength": 1
+              },
+              "alphabet": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "grapheme",
+              "phoneme",
+              "alphabet"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

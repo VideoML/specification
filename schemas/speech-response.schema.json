@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://videoml.org/schemas/speech-response.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ok": {
+          "const": true
+        },
+        "result": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "installed": {
+                  "type": "boolean"
+                },
+                "ready": {
+                  "type": "boolean"
+                },
+                "backend": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "modelId": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "modelRevision": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "auritusVersion": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "voices": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "options": {
+                  "type": "object",
+                  "properties": {
+                    "speed": {
+                      "type": "boolean"
+                    },
+                    "seed": {
+                      "type": "boolean"
+                    },
+                    "referenceAudio": {
+                      "type": "boolean"
+                    },
+                    "phonemes": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "speed",
+                    "seed",
+                    "referenceAudio",
+                    "phonemes"
+                  ],
+                  "additionalProperties": false
+                },
+                "cacheDisabledReason": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "extensions": {
+                  "type": "object",
+                  "propertyNames": {
+                    "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+                  },
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                },
+                "voice": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "installed",
+                "ready",
+                "backend",
+                "modelId",
+                "modelRevision",
+                "auritusVersion",
+                "voices",
+                "options",
+                "cacheDisabledReason",
+                "extensions",
+                "voice"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "audioPath": {
+                  "type": "string",
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+                },
+                "metadataPath": {
+                  "type": "string",
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+                },
+                "audioSha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "sampleRate": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "sampleCount": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "durationSec": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "segments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "startSec": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "endSec": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "text",
+                      "startSec",
+                      "endSec"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "provenance": {
+                  "type": "object",
+                  "properties": {
+                    "backend": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "modelId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "modelRevision": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 1
+                    },
+                    "auritusVersion": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "voice": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "speed": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "seed": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4294967295
+                    },
+                    "referenceAudioSha256": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "referenceTranscriptSha256": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "cacheDisabledReason": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "extensions": {
+                      "type": "object",
+                      "propertyNames": {
+                        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+                      },
+                      "additionalProperties": {
+                        "type": "object"
+                      }
+                    },
+                    "requestKey": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "contentHash": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "backend",
+                    "modelId",
+                    "modelRevision",
+                    "auritusVersion",
+                    "voice",
+                    "speed",
+                    "seed",
+                    "referenceAudioSha256",
+                    "referenceTranscriptSha256",
+                    "cacheDisabledReason",
+                    "extensions",
+                    "requestKey",
+                    "contentHash"
+                  ],
+                  "additionalProperties": false
+                },
+                "extensions": {
+                  "type": "object",
+                  "propertyNames": {
+                    "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+                  },
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                },
+                "pcmSha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "audioPath",
+                "metadataPath",
+                "audioSha256",
+                "sampleRate",
+                "sampleCount",
+                "durationSec",
+                "segments",
+                "provenance",
+                "extensions",
+                "pcmSha256"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "protocol",
+        "id",
+        "ok",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ok": {
+          "const": false
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "enum": [
+                "INVALID_REQUEST",
+                "BACKEND_UNAVAILABLE",
+                "MODEL_NOT_INSTALLED",
+                "UNSUPPORTED_OPTION",
+                "SYNTHESIS_FAILED"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "protocol",
+        "id",
+        "ok",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

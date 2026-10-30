@@ -1,0 +1,37 @@
+{
+  "protocol": 1,
+  "id": "segment-1",
+  "ok": true,
+  "result": {
+    "audioPath": "speech.wav",
+    "metadataPath": "speech.json",
+    "audioSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sampleRate": 24000,
+    "sampleCount": 24000,
+    "durationSec": 1,
+    "segments": [
+      {
+        "text": "Hello",
+        "startSec": 0,
+        "endSec": 1
+      }
+    ],
+    "provenance": {
+      "backend": "kokoro",
+      "modelId": "kokoro",
+      "modelRevision": "rev1",
+      "auritusVersion": "1.0",
+      "voice": "kokoro:af_heart",
+      "speed": 1,
+      "seed": 0,
+      "referenceAudioSha256": null,
+      "referenceTranscriptSha256": null,
+      "cacheDisabledReason": null,
+      "extensions": {},
+      "requestKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "contentHash": null
+    },
+    "extensions": {},
+    "pcmSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+}

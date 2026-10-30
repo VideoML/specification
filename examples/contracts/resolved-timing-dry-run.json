@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "sampleRateHz": 24000,
+  "fps": 30,
+  "generationSeed": 0,
+  "leadInSamples": 0,
+  "segments": [
+    {
+      "cueId": "cue-1",
+      "track": "main",
+      "originalText": "Hello",
+      "expandedText": "Hello",
+      "startSample": 240,
+      "endSample": 960,
+      "startFrame": 0,
+      "endFrame": 2,
+      "trimSamples": 0,
+      "pauseSamples": 0,
+      "audioPath": "audio/speech.wav",
+      "audioSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": {
+        "provider": "dry-run",
+        "simulated": true,
+        "audioSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "pcmSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "extensions": {}
+      },
+      "id": "seg-1",
+      "pcmSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "durationFrames": 30,
+  "scenes": [
+    {
+      "id": "scene-1",
+      "startFrame": 0,
+      "endFrame": 30
+    }
+  ],
+  "cues": [
+    {
+      "id": "cue-1",
+      "startFrame": 0,
+      "endFrame": 2
+    }
+  ],
+  "layers": [],
+  "components": [],
+  "transitions": []
+}
