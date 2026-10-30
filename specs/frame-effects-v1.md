@@ -17,3 +17,29 @@ For the content digest, remove `contentDigest` from the manifest, sort the `file
 Before extraction, reject ZIPs with compressed size >250 MiB, expanded size >1 GiB, >10,000 files, any file >250 MiB, duplicate normalized paths, symlinks or unsafe paths. Enforce limits while streaming, including actual bytes, not just header claims. Sanitize SVG external references and scripts; reject unsupported active formats. Local trusted projects MAY compile TS during preparation. Hosted pilot input is declarative XML with built-in or approved effect IDs and validated data only; reject scripts, handlers, custom components, executable expressions, HTML injection, external URLs and TS entrypoints. User data MUST NOT become code. The supervisor stages and validates the bundle, then launches the pinned allowlisted worker without credentials, metadata access or network, and uploads verified output separately. No arbitrary installs or setup hooks. Both directory and ZIP exports remain usable without a Babulus account.
 
 ZIP and filesystem enforcement is a P17 implementation gate. These schema and reference vectors do not implement or demonstrate ZIP import safety.
+
+## XML frame-effect binding (draft)
+
+A `frame-effect` is a component within a scene, layer, sequence, stack, or transition, using the existing XML timing and ID rules:
+
+```xml
+<vml id="example" fps="30" width="1280" height="720">
+  <scene id="scene" duration="4s">
+    <frame-effect id="effect" effect-id="videoml/echo-smear" effect-version="1" props='{"parameters":{"color":"#71f5a7"}}' start="0f" duration="120f" />
+  </scene>
+</vml>
+```
+
+The `effect-id` and exact `effect-version` MUST resolve in an approved registry; the `props` JSON object MUST contain only a `parameters` object. Its content MUST be plain finite data, recursively rejecting prototype-sensitive keys and executable expressions, and MUST validate against the registered descriptor. Unknown identities, versions, invalid parameters, or missing required pre-resolved assets MUST fail explicitly. The registry may be explicitly supplied by a trusted caller; the default built-in registry is fixed by the implementation and MUST NOT load code named by the XML.
+
+Start and duration use the ordinary component timing grammar, including frame units and inherited container timing. Frozen timing, when provided, is authoritative and uses the ordinary qualified component ID. The effect receives composition-absolute integer frames, not an independent local clock; visibility is half-open. Dimensions, frame rate, seed, and approved assets come from the composition and its caller. Seek MUST settle before capture, and disposal MUST release resources even after cancellation or failure. This draft describes the intended binding; implementations and release parity require separate verification.
+
+### Local effect assets
+
+An XML root MAY declare `<assets><asset id="font" src="assets/Geist-Latin.woff2" media-type="font/woff2"/></assets>`. The container is metadata and does not participate in timeline or normalized component IDs. Each ID is a unique asset-map key. Paths are relative POSIX paths resolved against the source XML directory; absolute paths, backslashes, traversal, URL schemes, query strings and fragments are invalid. The initial supported media types are WOFF2 fonts and PNG, JPEG, WebP or restricted SVG images. A composition MAY declare at most 32 assets, with at most 16 MiB per asset and 64 MiB total.
+
+Generation copies verified bytes into content-addressed files adjacent to the generated script and records `id`, relative `path`, `mediaType`, and SHA-256 in `script.meta.assets`; source absolute paths MUST NOT appear in generated artifacts. Node rendering requires the script directory as `assetBaseDir` when declarations exist, verifies file bytes and hashes, and passes pre-resolved data or blob URLs to effects without browser network access. A programmatic override that conflicts with a declared asset MUST fail rather than silently change its identity.
+
+A browser XML player MAY prepare declarations from same-origin resources using an explicit asset base URL or the document base URL. Alternatively, a trusted caller MAY provide matching pre-resolved local data or blob URLs. Preparation MUST settle before the first effect seek, reject missing or mismatched assets, enforce the bounds while reading, and release owned resources on cancellation or disposal. ZIP import and stronger hostile-filesystem isolation remain P17 responsibilities.
+
+For player effects, the frozen `generationSeed` takes precedence over a trusted explicit `effectSeed`, followed by an authored `voiceover` seed and then zero. An authored random seed requires frozen timing or an explicitly supplied resolved seed. Generation records its resolved seed in script metadata so script-only rendering can reproduce the same effect without starting a speech provider; renderers use frozen timing first, then a trusted explicit override, then that script seed, and finally zero.
