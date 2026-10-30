@@ -6,7 +6,7 @@
   "leadInSamples": 0,
   "segments": [
     {
-      "cueId": "cue-1",
+      "cueId": "cue:[\"cue-1\"]",
       "track": "main",
       "originalText": "Hello",
       "expandedText": "Hello",
@@ -25,26 +25,27 @@
         "pcmSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "extensions": {}
       },
-      "id": "seg-1",
+      "id": "segment:[\"cue-1\",0]",
       "pcmSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     }
   ],
   "durationFrames": 30,
   "scenes": [
     {
-      "id": "scene-1",
+      "id": "scene:[\"scene-1\"]",
       "startFrame": 0,
       "endFrame": 30
     }
   ],
   "cues": [
     {
-      "id": "cue-1",
+      "id": "cue:[\"cue-1\"]",
       "startFrame": 0,
       "endFrame": 2
     }
   ],
   "layers": [],
   "components": [],
-  "transitions": []
+  "transitions": [],
+  "audioTotalSamples": 960
 }
