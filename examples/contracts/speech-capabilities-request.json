@@ -1,0 +1,7 @@
+{
+  "protocol": 1,
+  "id": "cap-1",
+  "op": "capabilities",
+  "voice": "kokoro:af_heart",
+  "voicesDir": "/models"
+}

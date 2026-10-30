@@ -1,0 +1,25 @@
+{
+  "protocol": 1,
+  "id": "cap-1",
+  "ok": true,
+  "result": {
+    "installed": true,
+    "ready": true,
+    "backend": "kokoro",
+    "modelId": "kokoro",
+    "modelRevision": null,
+    "auritusVersion": "1.0",
+    "voices": [
+      "kokoro:af_heart"
+    ],
+    "options": {
+      "speed": true,
+      "seed": true,
+      "referenceAudio": false,
+      "phonemes": false
+    },
+    "cacheDisabledReason": "model revision unavailable",
+    "extensions": {},
+    "voice": "kokoro:af_heart"
+  }
+}

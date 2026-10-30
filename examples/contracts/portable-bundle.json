@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "projectId": "demo",
+  "entry": "source/main.xml",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 30,
+  "seed": 0,
+  "toolchainVersion": "1.0.0",
+  "files": [
+    {
+      "path": "source/main.xml",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/xml"
+    },
+    {
+      "path": "dependencies.lock.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/json"
+    },
+    {
+      "path": "audio/speech.wav",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "audio/wav"
+    },
+    {
+      "path": "timing/resolved.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/json"
+    }
+  ],
+  "assets": [],
+  "audio": [
+    "audio/speech.wav"
+  ],
+  "timing": [
+    "timing/resolved.json"
+  ],
+  "effects": [
+    {
+      "id": "example.fade",
+      "version": "1.0.0"
+    }
+  ],
+  "dependencies": {},
+  "fonts": {},
+  "contentDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

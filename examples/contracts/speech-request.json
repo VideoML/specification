@@ -1,0 +1,10 @@
+{
+  "protocol": 1,
+  "id": "segment-1",
+  "op": "synthesize",
+  "text": "Hello",
+  "voice": "kokoro:af_heart",
+  "speed": 1,
+  "seed": 0,
+  "outputDir": "/tmp/segment-1"
+}

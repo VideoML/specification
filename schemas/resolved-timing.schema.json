@@ -1,0 +1,464 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://videoml.org/schemas/resolved-timing.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "sampleRateHz": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fps": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "generationSeed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "leadInSamples": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cueId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "track": {
+            "type": "string",
+            "minLength": 1
+          },
+          "originalText": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expandedText": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startSample": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endSample": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "startFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "trimSamples": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pauseSamples": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "audioPath": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+          },
+          "audioSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "provenance": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "provider": {
+                    "const": "auritus"
+                  },
+                  "simulated": {
+                    "const": false
+                  },
+                  "audioSha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "pcmSha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "extensions": {
+                    "type": "object",
+                    "propertyNames": {
+                      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+                    },
+                    "additionalProperties": {
+                      "type": "object"
+                    }
+                  },
+                  "backend": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "modelId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "modelRevision": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1
+                  },
+                  "auritusVersion": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "voice": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "speed": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "seed": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  "referenceAudioSha256": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "referenceTranscriptSha256": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "cacheDisabledReason": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "requestKey": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "contentHash": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "provider",
+                  "simulated",
+                  "audioSha256",
+                  "pcmSha256",
+                  "extensions",
+                  "backend",
+                  "modelId",
+                  "modelRevision",
+                  "auritusVersion",
+                  "voice",
+                  "speed",
+                  "seed",
+                  "referenceAudioSha256",
+                  "referenceTranscriptSha256",
+                  "cacheDisabledReason",
+                  "requestKey",
+                  "contentHash"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "provider": {
+                    "type": "string",
+                    "minLength": 1,
+                    "not": {
+                      "enum": [
+                        "auritus",
+                        "dry-run"
+                      ]
+                    }
+                  },
+                  "simulated": {
+                    "const": false
+                  },
+                  "audioSha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "pcmSha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "extensions": {
+                    "type": "object",
+                    "propertyNames": {
+                      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+                    },
+                    "additionalProperties": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "provider",
+                  "simulated",
+                  "audioSha256",
+                  "pcmSha256",
+                  "extensions"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "provider": {
+                    "const": "dry-run"
+                  },
+                  "simulated": {
+                    "const": true
+                  },
+                  "audioSha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "pcmSha256": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "extensions": {
+                    "type": "object",
+                    "propertyNames": {
+                      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+                    },
+                    "additionalProperties": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "provider",
+                  "simulated",
+                  "audioSha256",
+                  "pcmSha256",
+                  "extensions"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pcmSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "cueId",
+          "track",
+          "originalText",
+          "expandedText",
+          "startSample",
+          "endSample",
+          "startFrame",
+          "endFrame",
+          "trimSamples",
+          "pauseSamples",
+          "audioPath",
+          "audioSha256",
+          "provenance",
+          "id",
+          "pcmSha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "durationFrames": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endFrame": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "startFrame",
+          "endFrame"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "cues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endFrame": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "startFrame",
+          "endFrame"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endFrame": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "startFrame",
+          "endFrame"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endFrame": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "startFrame",
+          "endFrame"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startFrame": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "endFrame": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "startFrame",
+          "endFrame"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "sampleRateHz",
+    "fps",
+    "generationSeed",
+    "leadInSamples",
+    "segments",
+    "durationFrames",
+    "scenes",
+    "cues",
+    "layers",
+    "components",
+    "transitions"
+  ],
+  "additionalProperties": false
+}

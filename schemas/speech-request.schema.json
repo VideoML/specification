@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://videoml.org/schemas/speech-request.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "op": {
+          "const": "capabilities"
+        },
+        "voice": {
+          "type": "string",
+          "minLength": 1,
+          "default": "kokoro:af_heart"
+        },
+        "voicesDir": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "protocol",
+        "id",
+        "op"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "op": {
+          "const": "synthesize"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "voice": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speed": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "outputDir": {
+          "type": "string",
+          "minLength": 1
+        },
+        "voicesDir": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "protocol",
+        "id",
+        "op",
+        "text",
+        "voice",
+        "speed",
+        "seed",
+        "outputDir"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

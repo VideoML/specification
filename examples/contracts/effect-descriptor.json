@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "example.fade",
+  "version": "1.0.0",
+  "parametersSchema": {
+    "type": "object",
+    "properties": {
+      "opacity": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    },
+    "required": [
+      "opacity"
+    ],
+    "additionalProperties": false
+  }
+}

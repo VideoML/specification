@@ -1,0 +1,9 @@
+{
+  "id": "example.fade",
+  "version": "1.0.0",
+  "parameters": {
+    "opacity": 0.5
+  },
+  "startFrame": 0,
+  "endFrame": 30
+}

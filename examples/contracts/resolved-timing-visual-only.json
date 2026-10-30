@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "sampleRateHz": 24000,
+  "fps": 30,
+  "generationSeed": 0,
+  "leadInSamples": 0,
+  "segments": [],
+  "durationFrames": 30,
+  "scenes": [
+    {
+      "id": "scene-1",
+      "startFrame": 0,
+      "endFrame": 30
+    }
+  ],
+  "cues": [],
+  "layers": [],
+  "components": [],
+  "transitions": []
+}
