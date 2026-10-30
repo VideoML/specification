@@ -50,6 +50,7 @@ function frames(start,end,rate,fps) {return start===end ? [Math.floor(start/rate
 assert.deepEqual(frames(240,960,24000,30),[0,2]);
 assert.deepEqual(frames(240,240,24000,30),[0,0]);
 function timingValid(t) {
+  if(!Number.isInteger(t.audioTotalSamples) || t.audioTotalSamples < t.leadInSamples || t.segments.some(s=>s.endSample+s.pauseSamples>t.audioTotalSamples)) return false;
   const all=[...t.scenes,...t.cues,...t.layers,...t.components,...t.transitions,...t.segments];
   if(new Set(all.map(x=>x.id)).size!==all.length) return false;
   const cues=new Set(t.cues.map(x=>x.id));
@@ -62,7 +63,7 @@ assert(timingValid(timing));
 const badTiming=structuredClone(timing);badTiming.segments[0].endFrame=1;assert(!timingValid(badTiming));
 const badRef=structuredClone(timing);badRef.segments[0].cueId='missing';assert(!timingValid(badRef));
 const overlap=structuredClone(timing);overlap.segments.push({...overlap.segments[0],id:'seg-2'});assert(!timingValid(overlap));
-const badId=structuredClone(timing);badId.scenes[0].id='cue-1';assert(!timingValid(badId));
+const badId=structuredClone(timing);badId.scenes[0].id=badId.cues[0].id;assert(!timingValid(badId));
 // A real minimal WAV vector: the PCM hash excludes its 44-byte header.
 const pcm=Buffer.from([0,0,255,127,0,128]); const wav=Buffer.alloc(44+pcm.length);
 wav.write('RIFF',0);wav.writeUInt32LE(wav.length-8,4);wav.write('WAVEfmt ',8);wav.writeUInt32LE(16,16);wav.writeUInt16LE(1,20);wav.writeUInt16LE(1,22);wav.writeUInt32LE(24000,24);wav.writeUInt32LE(48000,28);wav.writeUInt16LE(2,32);wav.writeUInt16LE(16,34);wav.write('data',36);wav.writeUInt32LE(pcm.length,40);pcm.copy(wav,44);

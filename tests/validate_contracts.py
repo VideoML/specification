@@ -36,10 +36,12 @@ for name, mutate in [
     ('speech-response', lambda x: x['result'].pop('pcmSha256')),
     ('speech-response', lambda x: x['result']['provenance'].pop('requestKey')),
     ('resolved-timing', lambda x: x.pop('scenes')),
+    ('resolved-timing', lambda x: x.pop('audioTotalSamples')),
+    ('resolved-timing', lambda x: x.update(audioTotalSamples=-1)),
     ('resolved-timing', lambda x: x['segments'][0]['provenance'].update(simulated=True)),
     ('resolved-timing-dry-run', lambda x: x['segments'][0]['provenance'].update(simulated=False)),
 ]:
     item = load(ROOT / 'examples/contracts' / (name + '.json'))
     mutate(item)
     assert validate(cases.get(name, name), item), name
-print('12 positive examples and 21 negative mutations passed')
+print('12 positive examples and 23 negative mutations passed')
