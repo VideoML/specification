@@ -20,6 +20,29 @@
     "description": {
       "type": "string",
       "minLength": 1
+    },
+    "sceneInputs": {
+      "type": "array",
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "sceneIdParameter",
+          "frameParameter"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "sceneIdParameter": {
+            "type": "string",
+            "pattern": "^(?!(?:__proto__|prototype|constructor)$)[A-Za-z_$][A-Za-z0-9_$]*$"
+          },
+          "frameParameter": {
+            "type": "string",
+            "pattern": "^(?!(?:__proto__|prototype|constructor)$)[A-Za-z_$][A-Za-z0-9_$]*$"
+          }
+        }
+      }
     }
   },
   "required": [

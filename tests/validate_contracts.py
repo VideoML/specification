@@ -13,7 +13,7 @@ def validate(name, value):
     Draft202012Validator.check_schema(schema)
     return list(Draft202012Validator(schema).iter_errors(value))
 
-cases = {'speech-capabilities': 'speech-response', 'speech-capabilities-request': 'speech-request', 'resolved-timing-paid': 'resolved-timing', 'resolved-timing-dry-run': 'resolved-timing', 'resolved-timing-visual-only': 'resolved-timing'}
+cases = {'effect-descriptor-scene-snapshot': 'effect-descriptor', 'speech-capabilities': 'speech-response', 'speech-capabilities-request': 'speech-request', 'resolved-timing-paid': 'resolved-timing', 'resolved-timing-dry-run': 'resolved-timing', 'resolved-timing-visual-only': 'resolved-timing'}
 for example in sorted((ROOT / 'examples/contracts').glob('*.json')):
     name = cases.get(example.stem, example.stem)
     errors = validate(name, load(example))
@@ -33,10 +33,16 @@ for name, changes in {
         mutated[field] = bad
         assert validate(name, mutated), (name, field, bad)
 for name, mutate in [
+    ('effect-descriptor-scene-snapshot', lambda x: x['sceneInputs'][0].pop('frameParameter')),
+    ('effect-descriptor-scene-snapshot', lambda x: x['sceneInputs'][0].update(sceneIdParameter='constructor')),
+    ('effect-descriptor-scene-snapshot', lambda x: x.update(sceneInputs=x['sceneInputs']*5)),
+    ('effect-descriptor-scene-snapshot', lambda x: x.update(sceneInputs=x['sceneInputs']*2)),
     ('dependency-lock', lambda x: x['dependencies'].__setitem__('player@^1.0.0', 'sha256:' + 'a' * 64)),
     ('dependency-lock', lambda x: x['fonts'].__setitem__('font', 'sha256:bad')),
     ('dependency-lock', lambda x: x['fonts'].__setitem__('constructor', 'sha256:' + 'a' * 64)),
     ('portable-bundle', lambda x: x['composition'].update(normalizedSource='source/normalized.json', sourceClosure=['source/main.ts'], browserBundle=None, customComponents=[{'id':'Custom','version':'1'}])),
+    ('portable-bundle', lambda x: x['composition'].update(customEffects=[{'id':'custom/x','version':'1','sceneInputs':[]}])) ,
+    ('portable-bundle', lambda x: x['composition'].update(normalizedSource='source/normalized.json', sourceClosure=['source/main.ts'], browserBundle='script/browser.js', customComponents=[], customEffects=[{'id':'custom/x','version':'1','sceneInputs':[{'sceneIdParameter':'constructor','frameParameter':'frame'}]}])),
     ('portable-bundle', lambda x: x.pop('composition')),
     ('portable-bundle', lambda x: x['composition'].pop('script')),
     ('portable-bundle', lambda x: x['composition'].pop('id')),
@@ -51,4 +57,4 @@ for name, mutate in [
     item = load(ROOT / 'examples/contracts' / (name + '.json'))
     mutate(item)
     assert validate(cases.get(name, name), item), name
-print('13 positive examples and 30 negative mutations passed')
+print('14 positive examples and 36 negative mutations passed')
