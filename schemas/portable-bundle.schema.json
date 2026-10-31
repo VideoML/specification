@@ -4,7 +4,10 @@
   "type": "object",
   "properties": {
     "schemaVersion": {
-      "const": 1
+      "enum": [
+        1,
+        2
+      ]
     },
     "projectId": {
       "type": "string",
@@ -330,6 +333,29 @@
           }
         }
       ]
+    },
+    "runtimeTargets": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 8,
+      "propertyNames": {
+        "enum": [
+          "darwin-arm64",
+          "linux-arm64-glibc"
+        ]
+      },
+      "additionalProperties": {
+        "type": "object",
+        "propertyNames": {
+          "pattern": "^(?:@[a-z0-9][a-z0-9._~-]*/[a-z0-9][a-z0-9._~-]*|[a-z0-9][a-z0-9._~-]*)@(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+        },
+        "additionalProperties": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "minProperties": 1,
+        "maxProperties": 10000
+      }
     }
   },
   "required": [
@@ -347,10 +373,49 @@
     "audio",
     "timing",
     "effects",
-    "dependencies",
     "fonts",
     "contentDigest",
     "composition"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": 1
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "dependencies"
+        ],
+        "not": {
+          "required": [
+            "runtimeTargets"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "runtimeTargets"
+        ],
+        "not": {
+          "required": [
+            "dependencies"
+          ]
+        }
+      }
+    }
+  ]
 }

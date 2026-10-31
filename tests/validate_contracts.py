@@ -13,7 +13,7 @@ def validate(name, value):
     Draft202012Validator.check_schema(schema)
     return list(Draft202012Validator(schema).iter_errors(value))
 
-cases = {'effect-descriptor-scene-snapshot': 'effect-descriptor', 'speech-capabilities': 'speech-response', 'speech-capabilities-request': 'speech-request', 'resolved-timing-paid': 'resolved-timing', 'resolved-timing-dry-run': 'resolved-timing', 'resolved-timing-visual-only': 'resolved-timing'}
+cases = {'portable-bundle-v2':'portable-bundle','dependency-lock-v2':'dependency-lock', 'effect-descriptor-scene-snapshot': 'effect-descriptor', 'speech-capabilities': 'speech-response', 'speech-capabilities-request': 'speech-request', 'resolved-timing-paid': 'resolved-timing', 'resolved-timing-dry-run': 'resolved-timing', 'resolved-timing-visual-only': 'resolved-timing'}
 for example in sorted((ROOT / 'examples/contracts').glob('*.json')):
     name = cases.get(example.stem, example.stem)
     errors = validate(name, load(example))
@@ -33,6 +33,10 @@ for name, changes in {
         mutated[field] = bad
         assert validate(name, mutated), (name, field, bad)
 for name, mutate in [
+    ('runtime-target-descriptor', lambda x: x.update(target='linux-arm64-musl')),
+    ('runtime-target-descriptor', lambda x: x.update(extra=True)),
+    ('dependency-lock-v2', lambda x: x['runtimeTargets'].update({'linux-arm64-musl':{}})),
+    ('portable-bundle-v2', lambda x: x.update(dependencies={})),
     ('effect-descriptor-scene-snapshot', lambda x: x['sceneInputs'][0].pop('frameParameter')),
     ('effect-descriptor-scene-snapshot', lambda x: x['sceneInputs'][0].update(sceneIdParameter='constructor')),
     ('effect-descriptor-scene-snapshot', lambda x: x.update(sceneInputs=x['sceneInputs']*5)),
@@ -57,4 +61,4 @@ for name, mutate in [
     item = load(ROOT / 'examples/contracts' / (name + '.json'))
     mutate(item)
     assert validate(cases.get(name, name), item), name
-print('14 positive examples and 36 negative mutations passed')
+print('17 positive examples and 40 negative mutations passed')
