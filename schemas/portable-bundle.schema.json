@@ -143,6 +143,134 @@
     "contentDigest": {
       "type": "string",
       "pattern": "^[0-9a-f]{64}$"
+    },
+    "composition": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+        },
+        "timing": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+        },
+        "audio": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalizedSource": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+        },
+        "sourceClosure": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+          }
+        },
+        "browserBundle": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*(?:^|/)\\.(?:/|$))(?!.*//)(?!.*\\\\)(?![A-Za-z]:)[^/]+(?:/[^/]+)*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "customComponents": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$"
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "script",
+        "timing",
+        "audio",
+        "id"
+      ],
+      "additionalProperties": false,
+      "dependentRequired": {
+        "normalizedSource": [
+          "normalizedSource",
+          "sourceClosure",
+          "browserBundle",
+          "customComponents"
+        ],
+        "sourceClosure": [
+          "normalizedSource",
+          "sourceClosure",
+          "browserBundle",
+          "customComponents"
+        ],
+        "browserBundle": [
+          "normalizedSource",
+          "sourceClosure",
+          "browserBundle",
+          "customComponents"
+        ],
+        "customComponents": [
+          "normalizedSource",
+          "sourceClosure",
+          "browserBundle",
+          "customComponents"
+        ]
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "browserBundle"
+            ],
+            "properties": {
+              "browserBundle": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "customComponents": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "required": [
@@ -162,7 +290,8 @@
     "effects",
     "dependencies",
     "fonts",
-    "contentDigest"
+    "contentDigest",
+    "composition"
   ],
   "additionalProperties": false
 }

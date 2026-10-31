@@ -33,6 +33,13 @@ for name, changes in {
         mutated[field] = bad
         assert validate(name, mutated), (name, field, bad)
 for name, mutate in [
+    ('dependency-lock', lambda x: x['dependencies'].__setitem__('player@^1.0.0', 'sha256:' + 'a' * 64)),
+    ('dependency-lock', lambda x: x['fonts'].__setitem__('font', 'sha256:bad')),
+    ('dependency-lock', lambda x: x['fonts'].__setitem__('constructor', 'sha256:' + 'a' * 64)),
+    ('portable-bundle', lambda x: x['composition'].update(normalizedSource='source/normalized.json', sourceClosure=['source/main.ts'], browserBundle=None, customComponents=[{'id':'Custom','version':'1'}])),
+    ('portable-bundle', lambda x: x.pop('composition')),
+    ('portable-bundle', lambda x: x['composition'].pop('script')),
+    ('portable-bundle', lambda x: x['composition'].pop('id')),
     ('speech-response', lambda x: x['result'].pop('pcmSha256')),
     ('speech-response', lambda x: x['result']['provenance'].pop('requestKey')),
     ('resolved-timing', lambda x: x.pop('scenes')),
@@ -44,4 +51,4 @@ for name, mutate in [
     item = load(ROOT / 'examples/contracts' / (name + '.json'))
     mutate(item)
     assert validate(cases.get(name, name), item), name
-print('12 positive examples and 23 negative mutations passed')
+print('13 positive examples and 30 negative mutations passed')
