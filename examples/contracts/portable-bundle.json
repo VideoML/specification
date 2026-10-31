@@ -28,6 +28,11 @@
       "path": "timing/resolved.json",
       "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "mediaType": "application/json"
+    },
+    {
+      "path": "script/main.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/json"
     }
   ],
   "assets": [],
@@ -45,5 +50,11 @@
   ],
   "dependencies": {},
   "fonts": {},
-  "contentDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  "contentDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "composition": {
+    "script": "script/main.json",
+    "timing": "timing/resolved.json",
+    "audio": "audio/speech.wav",
+    "id": "demo"
+  }
 }
