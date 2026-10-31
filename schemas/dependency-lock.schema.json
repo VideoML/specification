@@ -1,45 +1,109 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://videoml.org/schemas/dependency-lock.schema.json",
-  "type": "object",
-  "required": [
-    "dependencies",
-    "fonts"
-  ],
-  "additionalProperties": false,
-  "properties": {
-    "dependencies": {
+  "oneOf": [
+    {
       "type": "object",
-      "propertyNames": {
-        "pattern": "^(?:@[a-z0-9][a-z0-9._~-]*/[a-z0-9][a-z0-9._~-]*|[a-z0-9][a-z0-9._~-]*)@(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
-      },
-      "additionalProperties": {
-        "type": "string",
-        "pattern": "^sha256:[0-9a-f]{64}$"
+      "required": [
+        "dependencies",
+        "fonts"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "dependencies": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^(?:@[a-z0-9][a-z0-9._~-]*/[a-z0-9][a-z0-9._~-]*|[a-z0-9][a-z0-9._~-]*)@(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "fonts": {
+          "type": "object",
+          "propertyNames": {
+            "allOf": [
+              {
+                "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+              },
+              {
+                "not": {
+                  "enum": [
+                    "__proto__",
+                    "prototype",
+                    "constructor"
+                  ]
+                }
+              }
+            ]
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        }
       }
     },
-    "fonts": {
+    {
       "type": "object",
-      "propertyNames": {
-        "allOf": [
-          {
-            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+      "required": [
+        "schemaVersion",
+        "runtimeTargets",
+        "fonts"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": 2
+        },
+        "runtimeTargets": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 8,
+          "propertyNames": {
+            "enum": [
+              "darwin-arm64",
+              "linux-arm64-glibc"
+            ]
           },
-          {
-            "not": {
-              "enum": [
-                "__proto__",
-                "prototype",
-                "constructor"
-              ]
-            }
+          "additionalProperties": {
+            "type": "object",
+            "propertyNames": {
+              "pattern": "^(?:@[a-z0-9][a-z0-9._~-]*/[a-z0-9][a-z0-9._~-]*|[a-z0-9][a-z0-9._~-]*)@(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+            },
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "minProperties": 1,
+            "maxProperties": 10000
           }
-        ]
-      },
-      "additionalProperties": {
-        "type": "string",
-        "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "fonts": {
+          "type": "object",
+          "propertyNames": {
+            "allOf": [
+              {
+                "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+              },
+              {
+                "not": {
+                  "enum": [
+                    "__proto__",
+                    "prototype",
+                    "constructor"
+                  ]
+                }
+              }
+            ]
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        }
       }
     }
-  }
+  ]
 }

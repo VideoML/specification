@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "projectId": "demo",
+  "entry": "source/main.xml",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "durationFrames": 30,
+  "seed": 0,
+  "toolchainVersion": "1.0.0",
+  "files": [
+    {
+      "path": "source/main.xml",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/xml"
+    },
+    {
+      "path": "dependencies.lock.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/json"
+    },
+    {
+      "path": "audio/speech.wav",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "audio/wav"
+    },
+    {
+      "path": "timing/resolved.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/json"
+    },
+    {
+      "path": "script/main.json",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mediaType": "application/json"
+    }
+  ],
+  "assets": [],
+  "audio": [
+    "audio/speech.wav"
+  ],
+  "timing": [
+    "timing/resolved.json"
+  ],
+  "effects": [
+    {
+      "id": "example.fade",
+      "version": "1.0.0"
+    }
+  ],
+  "fonts": {},
+  "contentDigest": "f90e57df15658b94caa915f50ca66728c674958246ac5897c22471651d5155b8",
+  "composition": {
+    "script": "script/main.json",
+    "timing": "timing/resolved.json",
+    "audio": "audio/speech.wav",
+    "id": "demo"
+  },
+  "runtimeTargets": {
+    "darwin-arm64": {
+      "@videoml/cli@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/toolchain@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/renderer@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/shared@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/stdlib@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/player@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@esbuild/darwin-arm64@0.27.3": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "linux-arm64-glibc": {
+      "@videoml/cli@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/toolchain@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/renderer@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/shared@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/stdlib@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@videoml/player@1.0.0": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "@esbuild/linux-arm64@0.27.3": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  }
+}
